@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  font-family: "Fredoka", sans-serif;
+  background: #fff;
+  min-height: 100vh;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  padding: 40px;
+}
+
+.container-card {
+  display: flex;
+  max-width: 580px;
+  max-height: 680px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.form-container {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 90px;
+  background: #fff;
+}
+
+h1 {
+  font-family: "Koulen", sans-serif;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+  font-size: 2.4rem;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #5f6368;
+  margin-bottom: 40px;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+input[type="email"],
+input[type="password"] {
+  font-family: "Kanit", sans-serif;
+  font-size: 0.9rem;
+  padding: 12px 8px;
+  color: var(--text-dark);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(87, 185, 255, 0.3);
+  outline: none;
+}
+
+button {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 20px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: var(--dark);
+}
+
+.checkbox-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+#logged-in {
+  margin-left: 6px;
+  color: var(--text-dark);
+}
+
+.forgot-password a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgot-password a:hover {
+  color: var(--dark);
+}
+
+@media (max-width: 900px) {
+  .container-card {
+    flex-direction: column;
+  }
+  .form-container {
+    padding: 50px 30px;
+  }
+}
