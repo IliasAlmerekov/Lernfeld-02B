@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/scooteq.png";
 import "../styles/Sidebar.css";
 import LogoutBtn from "./LogoutBtn";
@@ -8,7 +8,17 @@ import plus from "../assets/plus.png";
 import analytics from "../assets/analytics.png";
 import konto from "../assets/konto.png";
 
-const Sidebar = ({ role, email, currentTab, onTabChange }) => {
+const Sidebar = ({ role, email, currentTab, onTabChange, onSearch }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    if (onSearch) {
+      onSearch(query);
+    }
+  };
+
   const userMenuItems = [
     {
       id: "dashboard",
@@ -46,9 +56,20 @@ const Sidebar = ({ role, email, currentTab, onTabChange }) => {
       <div className="sidebar-header">
         <div className="logo">
           <img src={logo} className="nav-logo" alt="Logo" />
-          <span className="logo-text"> ScooTeq Hamburg GmbH</span>
+          <span className="logo-text"> Scooteq Hamburg GmbH</span>
         </div>
       </div>
+
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchQuery}
+          onChange={handleSearch}
+          className="search-input"
+        />
+      </div>
+
       <nav className="sidebar-menu">
         <ul className="nav-list">
           {menuItems.map((item) => (
