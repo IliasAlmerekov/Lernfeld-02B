@@ -46,7 +46,7 @@ const Sidebar = ({ role, email, currentTab, onTabChange }) => {
       <div className="sidebar-header">
         <div className="logo">
           <img src={logo} className="nav-logo" alt="Logo" />
-          <span className="logo-text">Helpdesk ScooTeq</span>
+          <span className="logo-text"> ScooTeq Hamburg GmbH</span>
         </div>
       </div>
       <nav className="sidebar-menu">

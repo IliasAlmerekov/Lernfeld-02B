@@ -1,5 +1,16 @@
+:root {
+  --blue: hsl(211, 86%, 48%);
+  --green: hsl(134, 81%, 49%);
+  --yellow: #ffc107ee;
+  --gray: #f8f9fa;
+  --dark: #343a40;
+  --text: #333;
+}
+
 .dashboard-container {
   display: flex;
+  background-color: var(--gray);
+  min-height: 100vh;
 }
 
 .dashboard-content {
@@ -14,12 +25,54 @@
 
 .dashboard-header h1 {
   font-size: 2rem;
-  font-weight: 400;
-  color: var(--text-dark);
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--dark);
 }
 
 .dashboard-header p {
-  color: #666;
   font-size: 1rem;
+  color: hwb(0 40% 60%);
+  line-height: 1.6;
 }
+
+.ticket-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.ticket-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.ticket-card:hover {
+  transform: translateY(-4px);
+}
+
+.ticket-number {
+  font-size: 2rem;
+  font-weight: inherit;
+}
+
+.ticket-label {
+  font-size: 1rem;
+  color: var(--text);
+  margin-top: 0.5rem;
+}
+
+.ticket-card.open .ticket-number {
+  color: var(--yellow);
+}
+
+.ticket-card.in-progress .ticket-number {
+  color: var(--blue);
+}
+.ticket-card.resolved .ticket-number {
+  color: var(--green);
+}
+
