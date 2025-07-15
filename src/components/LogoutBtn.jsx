@@ -1,5 +1,5 @@
 import React from "react";
-import "./LogoutBtn.css";
+import "../styles/LogoutBtn.css";
 
 const LogoutBtn = () => {
   const handleLogout = () => {

@@ -1,8 +1,8 @@
 import "./App.css";
-import LoginPage from "./components/LoginPage";
-import Dashboard from "./components/Dashboard";
-import Sidebar from "./components/Sidebar";
-import Tickets from "./components/Tickets";
+import LoginPage from "./pages/LoginPage";
+import Dashboard from "./pages/Dashboard";
+import Tickets from "./components/TicketCard";
+import CreateTicket from "./components/CreateTicket";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/tickets" element={<Tickets />} />
+        <Route path="/create-ticket" element={<CreateTicket />} />
       </Routes>
     </Router>
   );

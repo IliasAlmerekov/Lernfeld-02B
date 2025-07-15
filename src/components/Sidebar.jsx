@@ -1,24 +1,24 @@
 import React from "react";
 import logo from "../assets/scooteq.png";
-import "./Sidebar.css";
+import "../styles/Sidebar.css";
 import LogoutBtn from "./LogoutBtn";
 import dashboard from "../assets/dashboards.png";
 import ticket from "../assets/ticket.png";
 import plus from "../assets/plus.png";
+import analytics from "../assets/analytics.png";
+import konto from "../assets/konto.png";
 
-const Sidebar = ({ role, email }) => {
+const Sidebar = ({ role, email, currentTab, onTabChange }) => {
   const userMenuItems = [
     {
       id: "dashboard",
       label: "Dashboard",
-      path: "/dashboard",
       icon: dashboard,
     },
     { id: "tickets", label: "My Tickets", path: "/tickets", icon: ticket },
     {
       id: "create-ticket",
       label: "Create Ticket",
-      path: "/create-ticket",
       icon: plus,
     },
   ];
@@ -30,8 +30,13 @@ const Sidebar = ({ role, email }) => {
       path: "admin-dashboard",
       icon: dashboard,
     },
-    { id: "all-tickets", label: "All Tickets", path: "all-tickets" },
-    { id: "analytics", label: "Analytics", path: "analytics" },
+    {
+      id: "all-tickets",
+      label: "All Tickets",
+      path: "all-tickets",
+      icon: ticket,
+    },
+    { id: "analytics", label: "Analytics", path: "analytics", icon: analytics },
   ];
 
   const menuItems = role === "admin" ? adminMenuItems : userMenuItems;
@@ -47,13 +52,18 @@ const Sidebar = ({ role, email }) => {
       <nav className="sidebar-menu">
         <ul className="nav-list">
           {menuItems.map((item) => (
-            <li key={item.id} className="nav-item">
-              <a href={item.path}>
+            <li
+              key={item.id}
+              className={`nav-item${currentTab === item.id ? " active" : ""}`}
+              onClick={() => onTabChange(item.id)}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="nav-link">
                 {item.icon && (
                   <img src={item.icon} alt="" className="nav-icon" />
                 )}
-                {item.label}
-              </a>
+                {item.id === "create-ticket" ? <b>{item.label}</b> : item.label}
+              </div>
             </li>
           ))}
         </ul>
@@ -62,7 +72,10 @@ const Sidebar = ({ role, email }) => {
       <div className="sidebar-footer">
         <div className="user-profile">
           <div className="user-info">
-            <div className="user-name">{email}</div>
+            <div className="user-name">
+              <img src={konto} alt="User Icon" className="user-avatar" />
+              {email}
+            </div>
           </div>
         </div>
         <LogoutBtn />
