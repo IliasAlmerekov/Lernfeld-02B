@@ -25,7 +25,7 @@
 
 .dashboard-header h1 {
   font-size: 2rem;
-  font-weight: 600;
+  font-weight:600;
   color: var(--dark);
 }
 
@@ -56,7 +56,7 @@
 
 .ticket-number {
   font-size: 2rem;
-  font-weight: inherit;
+  font-weight: 600;
 }
 
 .ticket-label {
