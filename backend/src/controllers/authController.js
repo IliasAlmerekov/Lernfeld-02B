@@ -4,21 +4,31 @@ import dotenv from "dotenv";
 import process from "process";
 dotenv.config();
 
-const signToken = (id, role, email) => {
-  return jwt.sign({ id, role, email }, process.env.JWT_SECRET, {
+const signToken = (id, role, email, name) => {
+  return jwt.sign({ id, role, email, name }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES,
   });
 };
 
+// Registrierung eines neuen Benutzers
+// Gibt ein Token und die User-ID zurück
 export const register = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password, role, name } = req.body;
 
-    const newUser = await User.create({ email, password, role });
+    // name wird jetzt auch gespeichert
+    const newUser = await User.create({ email, password, role, name });
 
-    const token = signToken(newUser._id, newUser.role, newUser.email);
+    // name wird dem Token hinzugefügt
+    const token = signToken(
+      newUser._id,
+      newUser.role,
+      newUser.email,
+      newUser.name
+    );
 
-    res.status(201).json({ token });
+    // Sende Token und User-ID zurück
+    res.status(201).json({ token, userId: newUser._id });
   } catch (error) {
     res
       .status(400)
@@ -26,6 +36,8 @@ export const register = async (req, res) => {
   }
 };
 
+// Login eines Benutzers
+// Gibt ein Token und die User-ID zurück
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -37,9 +49,10 @@ export const login = async (req, res) => {
     if (!isMatch)
       return res.status(401).json({ message: "Incorrect Password" });
 
-    const token = signToken(user._id, user.role, user.email);
+    const token = signToken(user._id, user.role, user.email, user.name);
 
-    res.status(200).json({ token });
+    // Sende Token und User-ID zurück
+    res.status(200).json({ token, userId: user._id });
   } catch (error) {
     res.status(500).json({ message: "Login failed", error: error.message });
   }
