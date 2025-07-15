@@ -1,5 +1,24 @@
 import mongoose from "mongoose";
 
+// Comment schema as a subdocument
+const commentSchema = new mongoose.Schema(
+  {
+    content: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 // Ticket-Schema mit Verweis auf den User (owner) und Status
 const ticketSchema = new mongoose.Schema(
   {
@@ -30,6 +49,8 @@ const ticketSchema = new mongoose.Schema(
       enum: ["open", "in-progress", "resolved", "closed"],
       default: "open",
     },
+    // Comments array as subdocuments
+    comments: [commentSchema],
   },
   {
     // Automatisch Zeitstempel hinzufügen (createdAt, updatedAt)

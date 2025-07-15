@@ -3,7 +3,9 @@
 export const getAllTickets = async (req, res) => {
   try {
     // Finde alle Tickets und fülle das owner-Feld mit User-Daten
-    const tickets = await Ticket.find().populate("owner", "email role");
+    const tickets = await Ticket.find()
+      .populate("owner", "email name role")
+      .populate("comments.author", "email name role");
     res.status(200).json(tickets);
   } catch (error) {
     res.status(500).json({
@@ -17,10 +19,9 @@ export const getAllTickets = async (req, res) => {
 export const getUserTickets = async (req, res) => {
   try {
     // Finde alle Tickets des angemeldeten Benutzers
-    const tickets = await Ticket.find({ owner: req.user._id }).populate(
-      "owner",
-      "email name role"
-    ); // Füge Benutzerinformationen hinzu
+    const tickets = await Ticket.find({ owner: req.user._id })
+      .populate("owner", "email name role")
+      .populate("comments.author", "email name role"); // Füge Benutzerinformationen hinzu
     res.status(200).json(tickets);
   } catch (error) {
     res.status(500).json({
@@ -32,6 +33,67 @@ export const getUserTickets = async (req, res) => {
 
 // Importiere das Ticket-Modell
 import Ticket from "../models/ticketModel.js";
+
+// Controller zum Hinzufügen eines Kommentars zu einem Ticket
+export const addComment = async (req, res) => {
+  try {
+    const { ticketId } = req.params;
+    const { content } = req.body;
+
+    if (!content) {
+      return res.status(400).json({ message: "Comment content is required" });
+    }
+
+    const ticket = await Ticket.findById(ticketId);
+
+    if (!ticket) {
+      return res.status(404).json({ message: "Ticket not found" });
+    }
+
+    // Add the comment to the ticket
+    ticket.comments.push({
+      content,
+      author: req.user._id,
+    });
+
+    // Save the ticket with the new comment
+    await ticket.save();
+
+    // Fetch the updated ticket with populated comments
+    const updatedTicket = await Ticket.findById(ticketId)
+      .populate("owner", "name email")
+      .populate("comments.author", "name email");
+
+    res.status(201).json(updatedTicket);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to add comment",
+      error: error.message,
+    });
+  }
+};
+
+// Controller zum Abrufen eines einzelnen Tickets mit Kommentaren
+export const getTicketById = async (req, res) => {
+  try {
+    const { ticketId } = req.params;
+
+    const ticket = await Ticket.findById(ticketId)
+      .populate("owner", "name email")
+      .populate("comments.author", "name email");
+
+    if (!ticket) {
+      return res.status(404).json({ message: "Ticket not found" });
+    }
+
+    res.status(200).json(ticket);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to retrieve ticket",
+      error: error.message,
+    });
+  }
+};
 
 // Controller zum Erstellen eines neuen Tickets
 // Diese Funktion wird aufgerufen, wenn ein User ein Ticket erstellt
