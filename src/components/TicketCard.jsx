@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "../styles/TicketCard.css";
-import { getUserTickets, getAllTickets } from "../api/api";
+import {
+  getUserTickets,
+  getAllTickets,
+  addComment,
+  getTicketById,
+} from "../api/api";
 
 const TicketCard = ({ role }) => {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [expandedTicket, setExpandedTicket] = useState(null);
+  const [commentContent, setCommentContent] = useState("");
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -61,6 +69,55 @@ const TicketCard = ({ role }) => {
     }
   };
 
+  const handleExpandTicket = async (ticketId) => {
+    try {
+      if (expandedTicket === ticketId) {
+        // Collapse if clicking the same ticket
+        setExpandedTicket(null);
+        return;
+      }
+
+      setExpandedTicket(ticketId);
+
+      // Fetch ticket details including comments
+      const ticketDetails = await getTicketById(ticketId);
+
+      // Update the ticket in the list with complete details including comments
+      setTickets(
+        tickets.map((ticket) =>
+          ticket._id === ticketId ? ticketDetails : ticket
+        )
+      );
+    } catch (err) {
+      console.error("Error fetching ticket details:", err);
+    }
+  };
+
+  const handleCommentSubmit = async (ticketId) => {
+    if (!commentContent.trim()) return;
+
+    try {
+      setSubmitLoading(true);
+
+      // Add comment to the ticket
+      const updatedTicket = await addComment(ticketId, commentContent);
+
+      // Update the ticket in the list with the new comment
+      setTickets(
+        tickets.map((ticket) =>
+          ticket._id === ticketId ? updatedTicket : ticket
+        )
+      );
+
+      // Clear the comment input
+      setCommentContent("");
+    } catch (err) {
+      console.error("Error adding comment:", err);
+    } finally {
+      setSubmitLoading(false);
+    }
+  };
+
   return (
     <div className="tickets-page">
       <div className="page-header">
@@ -74,9 +131,14 @@ const TicketCard = ({ role }) => {
           tickets.map((ticket) => (
             <div
               key={ticket._id}
-              className={`ticket-card priority-${ticket.priority}`}
+              className={`ticket-card priority-${ticket.priority} ${
+                expandedTicket === ticket._id ? "expanded" : ""
+              }`}
             >
-              <div className="ticket-header">
+              <div
+                className="ticket-header"
+                onClick={() => handleExpandTicket(ticket._id)}
+              >
                 <div className="ticket-id">#{ticket._id.substring(0, 8)}</div>
                 <div className={`ticket-priority ${ticket.priority}`}>
                   {ticket.priority}
@@ -144,7 +206,63 @@ const TicketCard = ({ role }) => {
                     </select>
                   </div>
                 )}
+
+                <button
+                  className="comments-toggle"
+                  onClick={() => handleExpandTicket(ticket._id)}
+                >
+                  {expandedTicket === ticket._id
+                    ? "Hide Comments"
+                    : "Show Comments"}
+                  <span className="comment-count">
+                    {ticket.comments?.length || 0}
+                  </span>
+                </button>
               </div>
+
+              {expandedTicket === ticket._id && (
+                <div className="ticket-comments-section">
+                  <h4 className="comments-heading">Comments</h4>
+
+                  <div className="comments-list">
+                    {ticket.comments && ticket.comments.length > 0 ? (
+                      ticket.comments.map((comment, index) => (
+                        <div key={index} className="comment-item">
+                          <div className="comment-header">
+                            <span className="comment-author">
+                              {comment.author?.name || "User"}
+                            </span>
+                            <span className="comment-date">
+                              {formatDate(comment.createdAt)}
+                            </span>
+                          </div>
+                          <div className="comment-content">
+                            {comment.content}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="no-comments">No comments yet</p>
+                    )}
+                  </div>
+
+                  <div className="add-comment-form">
+                    <textarea
+                      className="comment-input"
+                      placeholder="Add a comment..."
+                      value={commentContent}
+                      onChange={(e) => setCommentContent(e.target.value)}
+                    ></textarea>
+                    <button
+                      className="submit-comment-btn"
+                      onClick={() => handleCommentSubmit(ticket._id)}
+                      disabled={submitLoading || !commentContent.trim()}
+                    >
+                      {submitLoading ? "Sending..." : "Add Comment"}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           ))
         )}
