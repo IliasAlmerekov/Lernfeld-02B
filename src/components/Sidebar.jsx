@@ -27,16 +27,14 @@ const Sidebar = ({ role, email, currentTab, onTabChange }) => {
     {
       id: "admin-dashboard",
       label: "Admin Dashboard",
-      path: "admin-dashboard",
       icon: dashboard,
     },
     {
       id: "all-tickets",
       label: "All Tickets",
-      path: "all-tickets",
       icon: ticket,
     },
-    { id: "analytics", label: "Analytics", path: "analytics", icon: analytics },
+    { id: "analytics", label: "Analytics", icon: analytics },
   ];
 
   const menuItems = role === "admin" ? adminMenuItems : userMenuItems;

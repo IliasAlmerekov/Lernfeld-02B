@@ -14,6 +14,20 @@ export async function loginUser(email, password) {
   return response.json();
 }
 
+export async function registerUser(email, password, name, role) {
+  const response = await fetch(`${API_URL}/auth/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password, name, role }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to register");
+  }
+
+  return response.json();
+}
+
 export async function getUserTickets() {
   const token =
     localStorage.getItem("token") || sessionStorage.getItem("token");
@@ -32,7 +46,8 @@ export async function getUserTickets() {
   if (!response.ok) {
     throw new Error("Failed to fetch tickets");
   }
-  return response.json();
+  const data = await response.json();
+  return data;
 }
 
 export async function getAllTickets() {
@@ -43,7 +58,7 @@ export async function getAllTickets() {
     throw new Error("Not authenticated");
   }
 
-  const response = await fetch(`${API_URL}/tickets`, {
+  const response = await fetch(`${API_URL}/tickets?admin=true`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

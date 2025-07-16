@@ -2,6 +2,9 @@
 // Gibt alle Tickets mit User-Info (owner) zurück
 export const getAllTickets = async (req, res) => {
   try {
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Access denied" });
+    }
     // Finde alle Tickets und fülle das owner-Feld mit User-Daten
     const tickets = await Ticket.find()
       .populate("owner", "email name role")
