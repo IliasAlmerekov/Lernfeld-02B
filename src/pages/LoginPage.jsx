@@ -49,7 +49,7 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="username"
-                placeholder="example@scooteq.de"
+                placeholder="name.surname@scooteq.de"
               />
               <label htmlFor="password">
                 Password<span>*</span>
@@ -80,7 +80,7 @@ const LoginPage = () => {
                 </div>
               </div>
               {error && <p className="error-message">{error}</p>}
-              <button type="submit">Submit</button>
+              <button type="submit">Sign in</button>
             </form>
           </div>
         </section>

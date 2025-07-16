@@ -74,7 +74,9 @@ label {
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"],
+input[type="name"] {
   font-family: "Kanit", sans-serif;
   font-size: 0.9rem;
   padding: 12px 8px;

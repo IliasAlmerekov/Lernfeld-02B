@@ -60,7 +60,7 @@ const Dashboard = () => {
   return (
     <>
       {role === "admin" ? (
-        <AdminDashboard role={role} email={email} />
+        <AdminDashboard role={role} email={email} userName={userName} />
       ) : (
         <div className="dashboard-container">
           <Sidebar
