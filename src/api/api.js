@@ -119,3 +119,26 @@ export async function addComment(ticketId, content) {
 
   return response.json();
 }
+
+export async function updateTicket(ticketId, updatedData) {
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Not authenticated");
+  }
+
+  const response = await fetch(`${API_URL}/tickets/${ticketId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(updatedData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update ticket");
+  }
+
+  return response.json();
+}

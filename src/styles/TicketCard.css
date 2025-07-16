@@ -72,21 +72,130 @@
 }
 
 .ticket-content {
-  margin-bottom: 1.5rem;
+  padding: 1rem;
 }
 
 .ticket-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--text-dark);
+  color: #333;
   margin-bottom: 0.5rem;
-  line-height: 1.4;
+  text-align: left;
 }
 
 .ticket-description {
   color: #666;
-  font-size: 1rem;
   line-height: 1.5;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+.edit-button {
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.edit-button:hover {
+  background: #f5f5f5;
+  border-color: #999;
+  color: #333;
+}
+
+.edit-form {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 0.5rem;
+  border: 1px solid #e9ecef;
+}
+
+.edit-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.edit-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #495057;
+  text-align: left;
+}
+
+.edit-form input,
+.edit-form textarea,
+.edit-form select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+  text-align: left;
+}
+
+.edit-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus,
+.edit-form select:focus {
+  outline: none;
+  border-color: #2d8cff;
+  box-shadow: 0 0 0 3px rgba(45, 140, 255, 0.1);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: flex-start;
+}
+
+.save-btn,
+.cancel-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.save-btn {
+  background: #2d8cff;
+  color: white;
+  border: none;
+}
+
+.save-btn:hover {
+  background: #1e6bb8;
+}
+
+.save-btn:disabled {
+  background: #a8a8a8;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background: white;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.cancel-btn:hover {
+  background: #f5f5f5;
+  border-color: #999;
+  color: #333;
 }
 
 .ticket-meta {

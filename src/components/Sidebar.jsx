@@ -59,13 +59,13 @@ const Sidebar = ({ role, email, currentTab, onTabChange, onSearch }) => {
       </div>
 
       <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchQuery}
-          onChange={handleSearch}
-          className="search-input"
-        />
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={handleSearch}
+            className="search-input"
+          />
       </div>
 
       <nav className="sidebar-menu">
