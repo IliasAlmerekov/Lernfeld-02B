@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../styles/AllTickets.css";
 import { getAllTickets } from "../api/api";
+import Ticket from "./Ticket";
 
-const AllTickets = () => {
+const AllTickets = ({ role, email, currentTab }) => {
+  const [stats, setStats] = useState({
+    openTickets: 0,
+    closedTickets: 0,
+  });
   const [openTickets, setOpenTickets] = useState([]);
-  
   const [closedTickets, setClosedTickets] = useState([]);
   const [inProgressTickets, setInProgressTickets] = useState([]);
 
@@ -13,9 +17,21 @@ const AllTickets = () => {
       try {
         const tickets = await getAllTickets();
         console.log("Fetched tickets:", tickets);
-        setOpenTickets(
-          tickets.filter((ticket) => ticket.status === "open").length
+
+        // Set full ticket objects to display them
+        const openTicketsData = tickets.filter(
+          (ticket) => ticket.status === "open"
         );
+        const inProgressTicketsData = tickets.filter(
+          (ticket) => ticket.status === "in-progress"
+        );
+        const closedTicketsData = tickets.filter(
+          (ticket) => ticket.status === "closed" || ticket.status === "resolved"
+        );
+
+        setOpenTickets(openTicketsData);
+        setInProgressTickets(inProgressTicketsData);
+        setClosedTickets(closedTicketsData);
       } catch (error) {
         console.error("Error fetching tickets:", error);
       }
@@ -29,15 +45,48 @@ const AllTickets = () => {
         <p>Manage and track all support requests</p>
       </div>
       <div className="ticket-container">
-        <div className="ticket-card">
-          <div className="ticket-stats">
-            <h2>
-              🟡 Open <span>{openTickets}</span>
-            </h2>
-            <hr/>
-            <div className="card">
-                <p>{}</p>
-            </div>
+        <div className="ticket-section">
+          <h2>
+            🟡 Open Tickets <span>{openTickets.length}</span>
+          </h2>
+          <hr />
+          <div className="ticket-list">
+            <Ticket
+              openTickets={openTickets}
+              role={role}
+              email={email}
+              currentTab={currentTab}
+            />
+          </div>
+        </div>
+
+        <div className="ticket-section">
+          <h2>
+            🔵 In Progress <span>{inProgressTickets.length}</span>
+          </h2>
+          <hr />
+          <div className="ticket-list">
+            <Ticket
+              openTickets={inProgressTickets}
+              role={role}
+              email={email}
+              currentTab={currentTab}
+            />
+          </div>
+        </div>
+
+        <div className="ticket-section">
+          <h2>
+            🟢 Closed <span>{closedTickets.length}</span>
+          </h2>
+          <hr />
+          <div className="ticket-list">
+            <Ticket
+              openTickets={closedTickets}
+              role={role}
+              email={email}
+              currentTab={currentTab}
+            />
           </div>
         </div>
       </div>
