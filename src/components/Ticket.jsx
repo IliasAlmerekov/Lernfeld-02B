@@ -41,7 +41,9 @@ const Ticket = ({
       <p className="card-description">{ticket.description}</p>
       <div className="card-footer">
         <div className="card-owner">
-          <p>Created by: {ticket.owner.name}</p>
+          <p>
+            Created by: <b>{ticket.owner.name}</b>
+          </p>
         </div>
         <div className="view-details">
           <span>View Details &rarr;</span>
@@ -62,7 +64,7 @@ const Ticket = ({
   const renderAllTickets = (ticket, index) => (
     <div className="ticket-list-container" key={ticket._id}>
       <div className="ticket-list-item">
-        <p>{index + 1}</p>
+        <p>{allTickets.length - index}</p>
         <p>
           <b>{ticket.title}</b>
         </p>
@@ -80,11 +82,12 @@ const Ticket = ({
 
   return (
     <>
-      {openTickets && openTickets.map(renderTicketCard)}
+      {openTickets && [...openTickets].reverse().map(renderTicketCard)}
 
-      {inProgressTickets && inProgressTickets.map(renderTicketCard)}
+      {inProgressTickets &&
+        [...inProgressTickets].reverse().map(renderTicketCard)}
 
-      {closedTickets && closedTickets.map(renderTicketCard)}
+      {closedTickets && [...closedTickets].reverse().map(renderTicketCard)}
       {allTickets && (
         <div className="ticket-list-header">
           <div className="ticket-list-headline">
@@ -95,7 +98,7 @@ const Ticket = ({
             <h2>Action</h2>
           </div>
           <div className="ticket-list-body">
-            {allTickets && allTickets.map(renderAllTickets)}
+            {allTickets && [...allTickets].reverse().map(renderAllTickets)}
           </div>
         </div>
       )}
