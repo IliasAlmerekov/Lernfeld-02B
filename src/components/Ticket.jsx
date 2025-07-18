@@ -63,7 +63,9 @@ const Ticket = ({
     <div className="ticket-list-container" key={ticket._id}>
       <div className="ticket-list-item">
         <p>{index + 1}</p>
-        <p>{ticket.title}</p>
+        <p>
+          <b>{ticket.title}</b>
+        </p>
         <p>{ticket.createdAt ? formatDate(ticket.createdAt) : "N/A"}</p>
         <p className={`status ${ticket.status}`}>{ticket.status}</p>
         <div
