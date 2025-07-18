@@ -21,6 +21,10 @@ const TicketCard = ({ role }) => {
     description: "",
     priority: "",
   });
+  // Function to sort tickets by creation date (newest first)
+  const sortByNewest = (ticketsToSort) => {
+    return [...ticketsToSort].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  };
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -29,10 +33,7 @@ const TicketCard = ({ role }) => {
           role === "admin" ? await getAllTickets() : await getUserTickets();
 
         // Sort tickets by creation date, newest first
-        const sortedTickets = ticketsData.sort((a, b) => 
-          new Date(b.createdAt) - new Date(a.createdAt)
-        );
-
+        const sortedTickets = sortByNewest(ticketsData);
         setTickets(sortedTickets);
         setLoading(false);
       } catch (err) {
@@ -95,11 +96,10 @@ const TicketCard = ({ role }) => {
       const ticketDetails = await getTicketById(ticketId);
 
       // Update the ticket in the list with complete details including comments
-      setTickets(
-        tickets.map((ticket) =>
-          ticket._id === ticketId ? ticketDetails : ticket
-        )
+      const updatedTickets = tickets.map((ticket) =>
+        ticket._id === ticketId ? ticketDetails : ticket
       );
+      setTickets(sortByNewest(updatedTickets));
     } catch (err) {
       console.error("Error fetching ticket details:", err);
     }
@@ -114,12 +114,11 @@ const TicketCard = ({ role }) => {
       // Add comment to the ticket
       const updatedTicket = await addComment(ticketId, commentContent);
 
-      // Update the ticket in the list with the new comment and maintain sorting
+      // Update the ticket in the list and maintain sorting
       const updatedTickets = tickets.map((ticket) =>
         ticket._id === ticketId ? updatedTicket : ticket
-      ).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      
-      setTickets(updatedTickets);
+      );
+      setTickets(sortByNewest(updatedTickets));
 
       // Clear the comment input
       setCommentContent("");
@@ -155,9 +154,8 @@ const TicketCard = ({ role }) => {
       const updatedTicket = await updateTicket(ticketId, editForm);
       const updatedTickets = tickets.map((ticket) =>
         ticket._id === ticketId ? { ...ticket, ...updatedTicket } : ticket
-      ).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      
-      setTickets(updatedTickets);
+      );
+      setTickets(sortByNewest(updatedTickets));
       setEditingTicket(null);
     } catch (err) {
       console.error("Error updating ticket:", err);
@@ -166,6 +164,8 @@ const TicketCard = ({ role }) => {
       setSubmitLoading(false);
     }
   };
+
+
 
   return (
     <div className="tickets-page">
@@ -177,7 +177,7 @@ const TicketCard = ({ role }) => {
         {tickets.length === 0 ? (
           <div className="no-tickets">No tickets found</div>
         ) : (
-          tickets.map((ticket) => (
+          [...tickets].reverse().map((ticket) => (
             <div
               key={ticket._id}
               className={`ticket-card priority-${ticket.priority} ${
