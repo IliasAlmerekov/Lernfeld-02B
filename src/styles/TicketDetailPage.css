@@ -10,7 +10,127 @@
   background-color: #f0f0f0;
   border: none;
   border-radius: 4px;
-  padding: 8px 16px;
+  padding: 8px 1comment-form;
+
+  button:hover {
+    background-color: #1976d2;
+  }
+
+  /* Edit ticket styles */
+  .edit-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  .edit-button:hover {
+    background-color: #45a049;
+  }
+
+  .edit-ticket-form {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .edit-field {
+    margin-bottom: 15px;
+  }
+
+  .edit-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .edit-field input,
+  .edit-field textarea,
+  .edit-field select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  .edit-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .edit-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .edit-buttons button[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+  }
+
+  .edit-buttons button[type="button"] {
+    background-color: #f44336;
+    color: white;
+  }
+
+  /* Assignment styles */
+  .assign-container {
+    position: relative;
+  }
+
+  .assign-button,
+  .reassign-button {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .reassign-button {
+    margin-left: 10px;
+    background-color: #ff9800;
+  }
+
+  .assign-button:hover,
+  .reassign-button:hover {
+    opacity: 0.9;
+  }
+
+  .assign-dropdown {
+    position: absolute;
+    z-index: 100;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .assign-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .assign-option:hover {
+    background-color: #f0f0f0;
+  }
+
+  .assigned-to {
+    display: flex;
+    align-items: center;
+  }
   margin-bottom: 20px;
   cursor: pointer;
   font-size: 16px;
@@ -139,7 +259,7 @@
   background-color: #3e8e41;
 }
 
-.ticket-description {
+.ticket-description-container {
   background-color: #fff;
   padding: 15px;
   border-radius: 8px;
@@ -242,4 +362,120 @@
 
 .error {
   color: #cc0000;
+}
+
+/* Edit ticket styles */
+.edit-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+.edit-ticket-form {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.edit-field {
+  margin-bottom: 15px;
+}
+
+.edit-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.edit-field input,
+.edit-field textarea,
+.edit-field select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-buttons button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+}
+
+.edit-buttons button[type="button"] {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Assignment styles */
+.assign-container {
+  position: relative;
+}
+
+.assign-button,
+.reassign-button {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.reassign-button {
+  margin-left: 10px;
+  background-color: #ff9800;
+}
+
+.assign-button:hover,
+.reassign-button:hover {
+  opacity: 0.9;
+}
+
+.assign-dropdown {
+  position: absolute;
+  z-index: 100;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.assign-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.assign-option:hover {
+  background-color: #f0f0f0;
+}
+
+.assigned-to {
+  display: flex;
+  align-items: center;
 }

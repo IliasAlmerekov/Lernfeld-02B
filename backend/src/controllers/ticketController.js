@@ -83,6 +83,7 @@ export const getTicketById = async (req, res) => {
 
     const ticket = await Ticket.findById(ticketId)
       .populate("owner", "name email")
+      .populate("assignedTo", "name email role")
       .populate("comments.author", "name email");
 
     if (!ticket) {
@@ -157,6 +158,20 @@ export const updateTicket = async (req, res) => {
 
     if (assignedTo) {
       ticket.assignedTo = assignedTo;
+    }
+
+    const { title, description, priority } = req.body;
+
+    if (title) {
+      ticket.title = title;
+    }
+
+    if (description) {
+      ticket.description = description;
+    }
+
+    if (priority) {
+      ticket.priority = priority;
     }
 
     // Speichere das aktualisierte Ticket
