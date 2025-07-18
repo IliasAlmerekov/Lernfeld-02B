@@ -1,5 +1,6 @@
 import React, { useState } from "react"; // useState importieren für die Zustandsverwaltung
 import "../styles/CreateTicket.css";
+import Overlay from "./Overlay";
 
 const CreateTicket = () => {
   // Zustand für Ticketdaten initialisieren
@@ -13,6 +14,7 @@ const CreateTicket = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   // Handler für Änderungen in Formularfeldern
   const handleChange = (e) => {
@@ -34,7 +36,6 @@ const CreateTicket = () => {
       // Token aus dem lokalen Speicher abrufen
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
-      console.log("Token:", token);
 
       if (!token) {
         throw new Error("You are not logged in. Please log in.");
@@ -61,6 +62,7 @@ const CreateTicket = () => {
 
       // Erfolg setzen und Formular zurücksetzen
       setSuccess(true);
+      setShowOverlay(true); // Show the overlay on successful ticket creation
       setTicketData({
         title: "",
         priority: "medium",
@@ -94,6 +96,15 @@ const CreateTicket = () => {
 
       {/* Fehlermeldung anzeigen */}
       {error && <div className="error-message">{error}</div>}
+
+      {/* Overlay component */}
+      <Overlay
+        show={showOverlay}
+        onClose={() => setShowOverlay(false)}
+        title="Ticket created successfully!"
+        message="Your ticket has been submitted and will be processed soon. We'll notify you when there's an update."
+        buttonText="Close"
+      />
 
       <div className="create-ticket-form">
         <form onSubmit={handleSubmit}>

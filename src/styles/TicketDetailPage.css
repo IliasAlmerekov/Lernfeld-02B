@@ -6,131 +6,12 @@
   overflow-y: auto;
 }
 
+/* --- Buttons --- */
 .back-button {
   background-color: #4b6bfb;
   border: none;
   border-radius: 4px;
-  padding: 8px 1comment-form;
-
-  button:hover {
-    background-color: #1976d2;
-  }
-
-  /* Edit ticket styles */
-  .edit-button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 12px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-
-  .edit-button:hover {
-    background-color: #45a049;
-  }
-
-  .edit-ticket-form {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-
-  .edit-field {
-    margin-bottom: 15px;
-  }
-
-  .edit-field label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-
-  .edit-field input,
-  .edit-field textarea,
-  .edit-field select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-
-  .edit-buttons {
-    display: flex;
-    gap: 10px;
-  }
-
-  .edit-buttons button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .edit-buttons button[type="submit"] {
-    background-color: #4caf50;
-    color: white;
-  }
-
-  .edit-buttons button[type="button"] {
-    background-color: #f44336;
-    color: white;
-  }
-
-  /* Assignment styles */
-  .assign-container {
-    position: relative;
-  }
-
-  .assign-button,
-  .reassign-button {
-    background-color: #2196f3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-
-  .reassign-button {
-    margin-left: 10px;
-    background-color: #ff9800;
-  }
-
-  .assign-button:hover,
-  .reassign-button:hover {
-    opacity: 0.9;
-  }
-
-  .assign-dropdown {
-    position: absolute;
-    z-index: 100;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    min-width: 180px;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-
-  .assign-option {
-    padding: 8px 12px;
-    cursor: pointer;
-    border-bottom: 1px solid #f0f0f0;
-  }
-
-  .assign-option:hover {
-    background-color: #f0f0f0;
-  }
-
-  .assigned-to {
-    display: flex;
-    align-items: center;
-  }
+  padding: 6px 8px;
   margin-bottom: 20px;
   cursor: pointer;
   font-size: 16px;
@@ -141,17 +22,142 @@
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(75, 107, 251, 0.3);
 }
-
 .back-button:hover {
   background-color: #3451d1;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(75, 107, 251, 0.4);
 }
 
+.edit-button,
+.edit-buttons button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+}
+.edit-button:hover,
+.edit-buttons button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.edit-buttons button[type="button"] {
+  background-color: #f44336;
+  color: white;
+}
+.edit-buttons button[type="button"]:hover {
+  opacity: 0.9;
+}
+
+.assign-button,
+.reassign-button {
+  background-color: #2196f3;
+  font-size: 0.9rem;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.assign-button:hover,
+.reassign-button:hover {
+  opacity: 0.9;
+}
+
+.reassign-button {
+  margin-left: 10px;
+  background-color: #FFBF00;
+}
+
+/* --- Dropdown --- */
+.assign-container,
+.reassign-container {
+  position: relative;
+}
+
+.assigned-to {
+  display: flex;
+  align-items: center;
+}
+
+.assign-dropdown {
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 5px;
+}
+
+.assign-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+.assign-option:hover {
+  background-color: #f0f0f0;
+}
+
+/* --- Edit Form --- */
+.edit-ticket-form {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.edit-field {
+  margin-bottom: 15px;
+}
+.edit-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.edit-field input,
+.edit-field textarea,
+.edit-field select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* --- Status Styles --- */
+.status-container {
+  position: relative;
+}
+.status-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  z-index: 10;
+  width: 150px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.status-option {
+  padding: 8px;
+  cursor: pointer;
+}
+.status-option:hover {
+  background-color: #f9f9f9;
+}
+
+/* --- Ticket Meta --- */
 .ticket-header {
   margin-bottom: 20px;
 }
-
 .ticket-header h1 {
   margin-bottom: 10px;
   font-size: 24px;
@@ -175,109 +181,41 @@
   background-color: #ffdddd;
   color: #cc0000;
 }
-
 .priority.medium {
   background-color: #ffffdd;
   color: #999900;
 }
-
 .priority.low {
   background-color: #ddffdd;
   color: #009900;
-}
-
-.status {
-  padding: 4px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  user-select: none;
 }
 
 .status.open {
   background-color: #e0f7fa;
   color: #0097a7;
 }
-
 .status.in-progress {
   background-color: #e8f5e9;
   color: #2e7d32;
 }
-
 .status.resolved {
   background-color: #e8eaf6;
   color: #3f51b5;
 }
-
 .status.closed {
   background-color: #f5f5f5;
   color: #616161;
 }
 
-.status-container {
-  position: relative;
-}
-
-.status-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  z-index: 10;
-  width: 150px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.status-option {
-  padding: 8px;
-  cursor: pointer;
-}
-
-.status-option:hover {
-  background-color: #f9f9f9;
-}
-
+/* --- Content Sections --- */
 .ticket-content {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.ticket-info {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-}
-
-.assign-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 5px;
-}
-
-.assign-button:hover {
-  background-color: #3e8e41;
-}
-
-.ticket-description-container {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid #eee;
-}
-
-.ticket-description h3 {
-  margin-top: 0;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-}
-
+.ticket-info,
+.ticket-description-container,
 .ticket-comments {
   background-color: #fff;
   padding: 15px;
@@ -285,6 +223,7 @@
   border: 1px solid #eee;
 }
 
+.ticket-description h3,
 .ticket-comments h3 {
   margin-top: 0;
   border-bottom: 1px solid #eee;
@@ -297,44 +236,36 @@
   overflow-y: auto;
   margin-bottom: 20px;
 }
-
 .comment {
   margin-bottom: 15px;
   padding: 10px;
   background-color: #f5f5f5;
   border-radius: 4px;
 }
-
 .comment-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
 }
-
 .comment-author {
   font-weight: bold;
 }
-
 .comment-date {
   color: #777;
   font-size: 0.9em;
 }
-
 .comment-content {
   margin: 0;
 }
-
 .no-comments {
   color: #777;
   font-style: italic;
 }
-
 .comment-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .comment-form textarea {
   width: 100%;
   padding: 10px;
@@ -342,7 +273,6 @@
   border-radius: 4px;
   resize: vertical;
 }
-
 .comment-form button {
   align-self: flex-end;
   background-color: #2196f3;
@@ -353,134 +283,17 @@
   cursor: pointer;
   font-size: 14px;
 }
-
 .comment-form button:hover {
   background-color: #0b7dda;
 }
 
+/* --- Feedback --- */
 .loading,
 .error {
   text-align: center;
   padding: 20px;
   margin-top: 50px;
 }
-
 .error {
   color: #cc0000;
-}
-
-/* Edit ticket styles */
-.edit-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 6px 12px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.edit-button:hover {
-  background-color: #45a049;
-}
-
-.edit-ticket-form {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.edit-field {
-  margin-bottom: 15px;
-}
-
-.edit-field label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.edit-field input,
-.edit-field textarea,
-.edit-field select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.edit-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.edit-buttons button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.edit-buttons button[type="submit"] {
-  background-color: #4caf50;
-  color: white;
-}
-
-.edit-buttons button[type="button"] {
-  background-color: #f44336;
-  color: white;
-}
-
-/* Assignment styles */
-.assign-container {
-  position: relative;
-}
-
-.assign-button,
-.reassign-button {
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.reassign-button {
-  margin-left: 10px;
-  background-color: #ff9800;
-}
-
-.assign-button:hover,
-.reassign-button:hover {
-  opacity: 0.9;
-}
-
-.assign-dropdown {
-  position: absolute;
-  z-index: 100;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  min-width: 180px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.assign-option {
-  padding: 8px 12px;
-  cursor: pointer;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.assign-option:hover {
-  background-color: #f0f0f0;
-}
-
-.assigned-to {
-  display: flex;
-  align-items: center;
 }

@@ -204,7 +204,7 @@ const TicketDetailPage = () => {
       <div className="ticket-header">
         {!isEditing ? (
           <>
-            <h1>{ticket.title}</h1>
+            <h1>Title: {ticket.title}</h1>
             <div className="ticket-meta">
               <span className={`priority ${ticket.priority.toLowerCase()}`}>
                 {ticket.priority.charAt(0).toUpperCase() +
@@ -287,12 +287,41 @@ const TicketDetailPage = () => {
                 <strong>Assigned to:</strong> {ticket.assignedTo.name}
               </p>
               {isAdmin() && (
-                <button
-                  className="reassign-button"
-                  onClick={() => setAssignDropdownOpen(!assignDropdownOpen)}
-                >
-                  Reassign
-                </button>
+                <div className="reassign-container">
+                  <button
+                    className="reassign-button"
+                    onClick={() => setAssignDropdownOpen(!assignDropdownOpen)}
+                  >
+                    Reassign
+                  </button>
+                  {assignDropdownOpen && (
+                    <div className="assign-dropdown">
+                      <div
+                        className="assign-option"
+                        onClick={() => {
+                          if (currentUser && currentUser._id) {
+                            handleAssignTicket(currentUser._id);
+                          }
+                        }}
+                      >
+                        Assign to me
+                      </div>
+                      {adminUsers.map(
+                        (admin) =>
+                          currentUser &&
+                          admin._id !== currentUser._id && (
+                            <div
+                              key={admin._id}
+                              className="assign-option"
+                              onClick={() => handleAssignTicket(admin._id)}
+                            >
+                              {admin.name}
+                            </div>
+                          )
+                      )}
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           ) : isAdmin() ? (
@@ -337,33 +366,6 @@ const TicketDetailPage = () => {
             <p>
               <strong>Assigned to:</strong> Unassigned
             </p>
-          )}
-          {assignDropdownOpen && ticket.assignedTo && isAdmin() && (
-            <div className="assign-dropdown">
-              <div
-                className="assign-option"
-                onClick={() => {
-                  if (currentUser && currentUser._id) {
-                    handleAssignTicket(currentUser._id);
-                  }
-                }}
-              >
-                Assign to me
-              </div>
-              {adminUsers.map(
-                (admin) =>
-                  currentUser &&
-                  admin._id !== currentUser._id && (
-                    <div
-                      key={admin._id}
-                      className="assign-option"
-                      onClick={() => handleAssignTicket(admin._id)}
-                    >
-                      {admin.name}
-                    </div>
-                  )
-              )}
-            </div>
           )}
         </div>
 
