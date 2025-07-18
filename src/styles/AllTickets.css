@@ -1,24 +1,11 @@
-.tickets-page {
-  padding: 20px;
-}
-
-.page-header {
-  margin-bottom: 30px;
-}
-
-.page-header h1 {
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-
-.page-header p {
-  color: #666;
-  font-size: 14px;
+.all-tickets {
+ margin: 0;
+ padding: 0; 
 }
 
 .ticket-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 

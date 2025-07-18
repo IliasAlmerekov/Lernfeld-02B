@@ -10,11 +10,11 @@ const STAT_CONFIG = [
   { key: "resolvedTickets", label: "Resolved", icon: "✅" },
 ];
 
-const StatCard = ({ role, email, onTabChange, currentTab }) => {
+const StatCard = ({ role, email, onTabChange, currentTab, userName }) => {
   const [tickets, setTickets] = useState([]);
   const [openTickets, setOpenTickets] = useState([]);
   const [inProgressTickets, setInProgressTickets] = useState([]);
-  const [resolvedTickets, setResolvedTickets] = useState([]);
+  const [closedTickets, setClosedTickets] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,9 +32,7 @@ const StatCard = ({ role, email, onTabChange, currentTab }) => {
           setInProgressTickets(
             data.filter((ticket) => ticket.status === "in-progress")
           );
-          setResolvedTickets(
-            data.filter((ticket) => ticket.status === "resolved")
-          );
+          setClosedTickets(data.filter((ticket) => ticket.status === "closed"));
         }
       } catch (Error) {
         console.error("Error fetching tickets for stats:", Error);
@@ -85,25 +83,31 @@ const StatCard = ({ role, email, onTabChange, currentTab }) => {
         <div className="admin-stats-grid">
           <div className="ticket-card-grid">
             <h3>
-              <span>🟡</span> Open ({openTickets.length})
+              <span>🟢</span> Open ({openTickets.length})
             </h3>
             <span className="break-open"></span>
             <Ticket
               openTickets={openTickets}
-              inProgressTickets={inProgressTickets}
-              resolvedTickets={resolvedTickets}
               role={role}
               email={email}
               onTabChange={onTabChange}
               currentTab={currentTab}
+              userName={userName}
             />
           </div>
           <div className="ticket-card-grid">
             <h3>
-              <span>✅</span> Closed ({resolvedTickets.length})
+              <span>🔄</span> In Progress ({inProgressTickets.length})
             </h3>
             <span className="break-closed"></span>
-            <Ticket openTickets={resolvedTickets} role={role} />
+            <Ticket inProgressTickets={inProgressTickets} />
+          </div>
+          <div className="ticket-card-grid">
+            <h3>
+              <span>✅</span> Closed ({closedTickets.length})
+            </h3>
+            <span className="break-closed"></span>
+            <Ticket closedTickets={closedTickets} />
           </div>
         </div>
       )}

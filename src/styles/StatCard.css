@@ -86,16 +86,17 @@
 }
 
 .break-open {
-  border: 1px solid #0000db;
-  background-color: #0000db;
+  border: 1px solid #7ea131;
+  background-color: #7ea131;
   border-radius: 2px;
   width: 100%;
   height: 0.2rem;
+  margin: 8px;
 }
 
 .break-closed {
-  border: 1px solid #7ea131;
-  background-color: #7ea131;
+  border: 1px solid #0000db;
+  background-color: #0000db;
   border-radius: 2px;
   width: 100%;
   height: 0.2rem;

@@ -1,10 +1,9 @@
 import React from "react";
 import StatCard from "../components/StatCard";
 import { useOutletContext } from "react-router-dom";
-import "../styles/AdminDashboard.css";
 
 const AdminDashboard = ({ role, email, userName }) => {
-  const outletContext = useOutletContext() || {};
+  const outletContext = useOutletContext() || {}; // Outlet context is used to get role and email if not provided as props
 
   // Use context values if not provided as props
   const userRole = role || outletContext.role;
@@ -22,7 +21,7 @@ const AdminDashboard = ({ role, email, userName }) => {
             </p>
           </div>
         </div>
-        <StatCard role={userRole} email={userEmail} />
+        <StatCard role={userRole} email={userEmail} userName={userName} />
       </div>
     </>
   );
