@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Ticket.css";
+import ticketIcon from "../assets/ticket-icon.png";
+import TicketStatusLabel from "./TicketStatusLabel";
 
 const Ticket = ({
   allTickets,
@@ -10,6 +12,7 @@ const Ticket = ({
   role,
   email,
   currentTab,
+  lastTicket,
 }) => {
   const navigate = useNavigate();
 
@@ -80,9 +83,59 @@ const Ticket = ({
     </div>
   );
 
+  const renderLastTicket = (ticket) => (
+    <div
+      key={ticket._id}
+      className={`ticket-card priority-${ticket.priority}`}
+      onClick={() => navigate(`/tickets/${ticket._id}`, { state: { role } })}
+    >
+      <div className="ticket-header">
+        <TicketStatusLabel status={ticket.status} />
+        <div className={`ticket-priority ${ticket.priority}`}>
+          {ticket.priority}
+        </div>
+      </div>
+      <>
+        <div className="ticket-content-card">
+          <img src={ticketIcon} alt="Ticket Icon" />
+          <h3 className="ticket-title">{ticket.title}</h3>
+        </div>
+
+        <div className="ticket-meta">
+          {ticket.owner && (
+            <div className="ticket-user-info">
+              User:{" "}
+              <span className="user-name">
+                <b> {ticket.owner.name || "User"}</b>
+              </span>
+            </div>
+          )}
+          <div className="ticket-dates">
+            Submitted{" "}
+            <span>
+              <b>{ticket.createdAt ? formatDate(ticket.createdAt) : "N/A"}</b>
+            </span>
+          </div>
+        </div>
+
+        <div className="ticket-footer">
+          <div className="ticket-id">
+            <b> Ticket ID: {ticket._id.substring(0, 4)}</b>
+          </div>
+          <div className="ticket-comments-info">
+            <span className="comment-count">
+              <b> {ticket.comments?.length || 0} comments</b>
+            </span>
+          </div>
+        </div>
+      </>
+    </div>
+  );
+
   return (
     <>
       {openTickets && [...openTickets].reverse().map(renderTicketCard)}
+      {lastTicket && renderLastTicket(lastTicket)}
 
       {inProgressTickets &&
         [...inProgressTickets].reverse().map(renderTicketCard)}
