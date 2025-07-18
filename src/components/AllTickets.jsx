@@ -6,12 +6,18 @@ import Ticket from "./Ticket";
 const AllTickets = ({ role, email, currentTab }) => {
   const [allTickets, setAllTickets] = useState([]);
 
+  const sortByNewest = (ticketsToSort) => {
+    return [...ticketsToSort].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+  };
+
   useEffect(() => {
     const fetchAllTickets = async () => {
       try {
         const tickets = await getAllTickets();
-        console.log("Fetched tickets:", tickets);
-        setAllTickets(tickets);
+        const sortedTickets = sortByNewest(tickets);
+        setAllTickets(sortedTickets);
       } catch (error) {
         console.error("Error fetching tickets:", error);
       }

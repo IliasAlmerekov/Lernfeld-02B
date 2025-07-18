@@ -5,10 +5,13 @@ import "../App.css";
 import { jwtDecode } from "jwt-decode";
 import StatCard from "../components/StatCard";
 import { useOutletContext } from "react-router-dom";
+import Ticket from "../components/Ticket";
+import { getUserTickets } from "../api/api";
 
 const Dashboard = () => {
   const { role, email } = useOutletContext() || {};
   const [userName, setUserName] = useState("");
+  const [lastTicket, setLastTicket] = useState();
 
   useEffect(() => {
     const token =
@@ -17,11 +20,26 @@ const Dashboard = () => {
       try {
         const decoded = jwtDecode(token);
         setUserName(decoded.name || "");
+        getLastTicket();
       } catch (error) {
         console.error("Invalid token", error);
       }
     }
   }, []);
+
+  const getLastTicket = async () => {
+    try {
+      const tickets = await getUserTickets();
+      if (tickets && tickets.length > 0) {
+        const sortedTickets = tickets.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setLastTicket(sortedTickets[0]);
+      }
+    } catch (error) {
+      console.error("Failed to fetch latest ticket:", error);
+    }
+  };
 
   if (role === "admin") {
     return <AdminDashboard role={role} email={email} userName={userName} />;
@@ -41,6 +59,9 @@ const Dashboard = () => {
         </div>
       </div>
       <StatCard role={role} />
+      <div className="last-ticket-container">
+        <Ticket lastTicket={lastTicket} />
+      </div>
     </>
   );
 };

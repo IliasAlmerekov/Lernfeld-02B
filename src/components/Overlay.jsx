@@ -1,21 +1,7 @@
 import React from "react";
 import "../styles/Overlay.css";
 
-/**
- * Overlay component to display a success/confirmation message
- * @param {boolean} show - Whether to show the overlay or not
- * @param {function} onClose - Function to handle closing the overlay
- * @param {string} title - Title text for the overlay
- * @param {string} message - Message text for the overlay
- * @param {string} buttonText - Text for the close button
- */
-const Overlay = ({
-  show,
-  onClose,
-  title = "Coming soon.",
-  message = "This is an example demo only - not all screens or features are implemented.",
-  buttonText = "Close",
-}) => {
+const Overlay = ({ show, onClose, title, message, buttonText }) => {
   if (!show) return null;
 
   return (
@@ -33,7 +19,7 @@ const Overlay = ({
           </svg>
         </div>
 
-        <div className="overlay-demo-label">DEMO VERSION ONLY</div>
+        <div className="overlay-demo-label">ScooTeq HELPDESK</div>
 
         <h2 className="overlay-title">{title}</h2>
 

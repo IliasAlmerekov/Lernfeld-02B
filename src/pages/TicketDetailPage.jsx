@@ -198,13 +198,16 @@ const TicketDetailPage = () => {
 
   return (
     <div className="ticket-detail-container">
+      <div className="all-tickets-header">
+        <h1>Ticket {ticket._id.substring(0, 7)}</h1>
+      </div>
       <button className="back-button" onClick={goBack}>
         &larr; Back
       </button>
-      <div className="ticket-header">
+      <div className="ticket-edit-header">
         {!isEditing ? (
           <>
-            <h1>Title: {ticket.title}</h1>
+            <h2>Title: {ticket.title}</h2>
             <div className="ticket-meta">
               <span className={`priority ${ticket.priority.toLowerCase()}`}>
                 {ticket.priority.charAt(0).toUpperCase() +
@@ -232,14 +235,17 @@ const TicketDetailPage = () => {
                 )}
               </div>
               {(isAdmin() || currentUser?._id === ticket.owner?._id) && (
-                <button className="edit-button" onClick={handleEditToggle}>
+                <button
+                  className="edit-button-secondary"
+                  onClick={handleEditToggle}
+                >
                   Edit Ticket
                 </button>
               )}
             </div>
           </>
         ) : (
-          <form className="edit-ticket-form" onSubmit={handleEditSubmit}>
+          <form className="edit-ticket-form">
             <div className="edit-field">
               <label>Title:</label>
               <input
@@ -262,18 +268,12 @@ const TicketDetailPage = () => {
                 <option value="high">High</option>
               </select>
             </div>
-            <div className="edit-buttons">
-              <button type="submit">Save</button>
-              <button type="button" onClick={handleEditToggle}>
-                Cancel
-              </button>
-            </div>
           </form>
         )}
       </div>
 
       <div className="ticket-content">
-        <div className="ticket-info">
+        <div className="ticket-info-container">
           <p>
             <strong>Created by:</strong> {ticket.owner?.email || "Unknown"}
           </p>
@@ -417,6 +417,23 @@ const TicketDetailPage = () => {
             />
             <button type="submit">Add Comment</button>
           </form>
+          {isEditing && (
+            <div className="edit-buttons">
+              <button
+                className="edit-button-secondary"
+                onClick={handleEditSubmit}
+              >
+                Save
+              </button>
+              <button
+                className="edit-button-secondary"
+                type="button"
+                onClick={handleEditToggle}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
