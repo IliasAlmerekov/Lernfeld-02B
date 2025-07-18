@@ -5,6 +5,7 @@ import {
   getUserTickets,
   addComment,
   getTicketById,
+  updateTicket,
 } from "../controllers/ticketController.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 
@@ -30,5 +31,9 @@ router.post("/", authMiddleware, createTicket);
 // Route zum Hinzufügen eines Kommentars zu einem Ticket
 // POST /api/tickets/:ticketId/comments
 router.post("/:ticketId/comments", authMiddleware, addComment);
+
+// Route zum Aktualisieren eines Tickets (Status, Zuweisung)
+// PUT /api/tickets/:ticketId
+router.put("/:ticketId", authMiddleware, updateTicket);
 
 export default router;

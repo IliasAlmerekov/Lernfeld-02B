@@ -1,3 +1,40 @@
+.all-tickets {
+ margin: 0;
+ padding: 0; 
+}
 
+.ticket-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
+.ticket-section {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
 
+.ticket-section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticket-section h2 span {
+  background-color: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #333;
+}
+
+.ticket-list {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

@@ -43,6 +43,12 @@ const ticketSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    // Referenz auf den Admin, dem das Ticket zugewiesen wurde
+    assignedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
     // Status des Tickets (z.B. offen, geschlossen)
     status: {
       type: String,
