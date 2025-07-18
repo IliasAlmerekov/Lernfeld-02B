@@ -93,9 +93,12 @@
     color: #596575;
     font-size: 1rem;
     line-height: 1.6;
-    max-height: 200px;
+    max-height: 400px;
     overflow-y: auto;
-    padding-right: 10px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    margin: 15px 0;
 }
 
 /* Custom scrollbar für die Beschreibung */
@@ -180,14 +183,19 @@
 }
 
 .ticket-description {
-  color: #666;
-  line-height: 1.5;
+  color: #444;
+  line-height: 1.6;
   text-align: left;
   white-space: pre-wrap;
-  max-height: 40px;
-  overflow-y: auto;
-  padding-right: 10px;
-  scrollbar-width: thin;
+  max-height: none;
+  overflow-y: visible;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  margin: 15px 0;
+  font-size: 1rem;
+  border-left: 4px solid #4b6bfb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 /* Webkit Scrollbar Styles */
@@ -306,15 +314,17 @@
 }
 
 .cancel-btn {
-  background: white;
-  color: #666;
-  border: 1px solid #ddd;
+  background: #4b6bfb;
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(75, 107, 251, 0.3);
 }
 
 .cancel-btn:hover {
-  background: #f5f5f5;
-  border-color: #999;
-  color: #333;
+  background: #3451d1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(75, 107, 251, 0.4);
 }
 
 .ticket-meta {
