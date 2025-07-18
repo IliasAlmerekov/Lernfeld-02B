@@ -7,7 +7,7 @@
 }
 
 .back-button {
-  background-color: #f0f0f0;
+  background-color: #4b6bfb;
   border: none;
   border-radius: 4px;
   padding: 8px 1comment-form;
@@ -137,10 +137,15 @@
   display: flex;
   align-items: center;
   width: fit-content;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(75, 107, 251, 0.3);
 }
 
 .back-button:hover {
-  background-color: #e0e0e0;
+  background-color: #3451d1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(75, 107, 251, 0.4);
 }
 
 .ticket-header {
