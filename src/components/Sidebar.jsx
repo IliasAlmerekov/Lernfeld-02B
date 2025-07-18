@@ -54,14 +54,14 @@ const Sidebar = ({ role, email, currentTab, onTabChange, onSearch }) => {
       <div className="sidebar-header">
         <div className="logo">
           <img src={logo} className="nav-logo" alt="Logo" />
-          <span className="logo-text"> Scooteq Hamburg GmbH</span>
+          <span className="logo-text"> Scooteq HelpDesk</span>
         </div>
       </div>
 
       <div className="search-container">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search..."
             value={searchQuery}
             onChange={handleSearch}
             className="search-input"
