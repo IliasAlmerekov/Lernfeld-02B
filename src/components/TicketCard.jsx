@@ -28,7 +28,12 @@ const TicketCard = ({ role }) => {
         const ticketsData =
           role === "admin" ? await getAllTickets() : await getUserTickets();
 
-        setTickets(ticketsData);
+        // Sort tickets by creation date, newest first
+        const sortedTickets = ticketsData.sort((a, b) => 
+          new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
+        setTickets(sortedTickets);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching tickets:", err);
@@ -109,12 +114,12 @@ const TicketCard = ({ role }) => {
       // Add comment to the ticket
       const updatedTicket = await addComment(ticketId, commentContent);
 
-      // Update the ticket in the list with the new comment
-      setTickets(
-        tickets.map((ticket) =>
-          ticket._id === ticketId ? updatedTicket : ticket
-        )
-      );
+      // Update the ticket in the list with the new comment and maintain sorting
+      const updatedTickets = tickets.map((ticket) =>
+        ticket._id === ticketId ? updatedTicket : ticket
+      ).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      
+      setTickets(updatedTickets);
 
       // Clear the comment input
       setCommentContent("");
@@ -148,11 +153,11 @@ const TicketCard = ({ role }) => {
     try {
       setSubmitLoading(true);
       const updatedTicket = await updateTicket(ticketId, editForm);
-      setTickets(
-        tickets.map((ticket) =>
-          ticket._id === ticketId ? { ...ticket, ...updatedTicket } : ticket
-        )
-      );
+      const updatedTickets = tickets.map((ticket) =>
+        ticket._id === ticketId ? { ...ticket, ...updatedTicket } : ticket
+      ).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      
+      setTickets(updatedTickets);
       setEditingTicket(null);
     } catch (err) {
       console.error("Error updating ticket:", err);
