@@ -1,12 +1,58 @@
-# React + Vite
+# Support-Ticket-System der ScooTeq GmbH
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ein internes Ticket-System für die Bearbeitung von internen Anfragen der Mitarbeiter.
 
-Currently, two official plugins are available:
+## Überblick
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Das Support-Ticket-System wurde ausschließlich für die interne Verwendung bei der ScooTeq GmbH entwickelt und ermöglicht die effiziente Erfassung, Verwaltung und Bearbeitung von Support-Anfragen der Mitarbeiter. Das System bietet eine übersichtliche Benutzeroberfläche für das IT-Support-Team, um die internen Anfragen schnell zu bearbeiten und den Status von Tickets zu verfolgen.
 
-## Expanding the ESLint configuration
+## Funktionen
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Benutzerauthentifizierung**: Sichere Anmeldung für Support-Team und Mitarbeiter
+- **Ticket-Erstellung**: Einfaches Erstellen von internen Support-Tickets durch Mitarbeiter
+- **Ticket-Verwaltung**: Übersicht aller offenen und geschlossenen internen Tickets
+- **Statusverfolgung**: Aktueller Bearbeitungsstatus jedes Tickets
+- **Dashboard**: Visualisierung wichtiger Support-Kennzahlen für das IT-Team
+- **Benutzerrechte**: Unterschiedliche Zugriffsebenen für reguläre Mitarbeiter und Support-Administratoren
+
+## Technische Details
+
+Das Projekt besteht aus zwei Hauptkomponenten:
+
+### Frontend
+
+- React mit Vite als Build-Tool
+- Modernes UI-Design mit angepasstem CSS
+- Reaktive Komponenten für Echtzeitaktualisierungen
+
+### Backend
+
+- Node.js mit Express als Server-Framework
+- MongoDB zur Datenspeicherung
+- JWT-basierte Authentifizierung
+- RESTful API für die Kommunikation mit dem Frontend
+
+## Installation und Start
+
+1. Frontend und Backend Abhängigkeiten installieren:
+
+```bash
+npm install
+cd backend && npm install
+```
+
+2. Frontend starten:
+
+```bash
+npm run dev
+```
+
+3. Backend starten:
+
+```bash
+cd backend && npm run dev
+```
+
+## Entwickelt für
+
+ScooTeq GmbH - Internes IT-Support-Team zur Bearbeitung von Mitarbeiteranfragen
