@@ -78,10 +78,8 @@ const Layout = () => {
     }
   };
 
-  // Handle search functionality
   const handleSearch = (query) => {
     setSearchQuery(query);
-    // Propagate search query to children components through context or state management
   };
 
   return (
