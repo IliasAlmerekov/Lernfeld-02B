@@ -197,243 +197,245 @@ const TicketDetailPage = () => {
   if (!ticket) return <div className="error">Ticket not found</div>;
 
   return (
-    <div className="ticket-detail-container">
-      <div className="all-tickets-header">
-        <h1>Ticket {ticket._id.substring(0, 7)}</h1>
-      </div>
-      <button className="back-button" onClick={goBack}>
-        &larr; Back
-      </button>
-      <div className="ticket-edit-header">
-        {!isEditing ? (
-          <>
-            <h2>Title: {ticket.title}</h2>
-            <div className="ticket-meta">
-              <span className={`priority ${ticket.priority.toLowerCase()}`}>
-                {ticket.priority.charAt(0).toUpperCase() +
-                  ticket.priority.slice(1)}
-              </span>
-              <div className="status-container">
-                <span
-                  className={`status ${ticket.status}`}
-                  onClick={() => setStatusDropdown(!statusDropdown)}
-                >
-                  {ticket.status} ▼
+    <div className="ticket-detail-page">
+      <div className="ticket-detail-container">
+        <div className="all-tickets-header">
+          <h1>Ticket {ticket._id.substring(0, 7)}</h1>
+        </div>
+        <button className="back-button" onClick={goBack}>
+          &larr; Back
+        </button>
+        <div className="ticket-edit-header">
+          {!isEditing ? (
+            <>
+              <h2>Title: {ticket.title}</h2>
+              <div className="ticket-meta">
+                <span className={`priority ${ticket.priority.toLowerCase()}`}>
+                  {ticket.priority.charAt(0).toUpperCase() +
+                    ticket.priority.slice(1)}
                 </span>
-                {statusDropdown && isAdmin() && (
-                  <div className="status-dropdown">
-                    {STATUS_OPTIONS.map((status) => (
-                      <div
-                        key={status}
-                        className={`status-option ${status}`}
-                        onClick={() => handleStatusChange(status)}
-                      >
-                        {status}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              {(isAdmin() || currentUser?._id === ticket.owner?._id) && (
-                <button
-                  className="edit-button-secondary"
-                  onClick={handleEditToggle}
-                >
-                  Edit Ticket
-                </button>
-              )}
-            </div>
-          </>
-        ) : (
-          <form className="edit-ticket-form">
-            <div className="edit-field">
-              <label>Title:</label>
-              <input
-                type="text"
-                name="title"
-                value={editedTicket.title}
-                onChange={handleEditChange}
-                required
-              />
-            </div>
-            <div className="edit-field">
-              <label>Priority:</label>
-              <select
-                name="priority"
-                value={editedTicket.priority}
-                onChange={handleEditChange}
-              >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </select>
-            </div>
-          </form>
-        )}
-      </div>
-
-      <div className="ticket-content">
-        <div className="ticket-info-container">
-          <p>
-            <strong>Created by:</strong> {ticket.owner?.email || "Unknown"}
-          </p>
-          <p>
-            <strong>Created at:</strong>{" "}
-            {new Date(ticket.createdAt).toLocaleString()}
-          </p>
-          {ticket.assignedTo ? (
-            <div className="assigned-to">
-              <p>
-                <strong>Assigned to:</strong> {ticket.assignedTo.name}
-              </p>
-              {isAdmin() && (
-                <div className="reassign-container">
-                  <button
-                    className="reassign-button"
-                    onClick={() => setAssignDropdownOpen(!assignDropdownOpen)}
+                <div className="status-container">
+                  <span
+                    className={`status ${ticket.status}`}
+                    onClick={() => setStatusDropdown(!statusDropdown)}
                   >
-                    Reassign
-                  </button>
-                  {assignDropdownOpen && (
-                    <div className="assign-dropdown">
-                      <div
-                        className="assign-option"
-                        onClick={() => {
-                          if (currentUser && currentUser._id) {
-                            handleAssignTicket(currentUser._id);
-                          }
-                        }}
-                      >
-                        Assign to me
-                      </div>
-                      {adminUsers.map(
-                        (admin) =>
-                          currentUser &&
-                          admin._id !== currentUser._id && (
-                            <div
-                              key={admin._id}
-                              className="assign-option"
-                              onClick={() => handleAssignTicket(admin._id)}
-                            >
-                              {admin.name}
-                            </div>
-                          )
-                      )}
+                    {ticket.status} ▼
+                  </span>
+                  {statusDropdown && isAdmin() && (
+                    <div className="status-dropdown">
+                      {STATUS_OPTIONS.map((status) => (
+                        <div
+                          key={status}
+                          className={`status-option ${status}`}
+                          onClick={() => handleStatusChange(status)}
+                        >
+                          {status}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
-              )}
-            </div>
-          ) : isAdmin() ? (
-            <div className="assign-container">
-              <button
-                className="assign-button"
-                onClick={() => setAssignDropdownOpen(!assignDropdownOpen)}
-              >
-                Assign Ticket ▼
-              </button>
-              {assignDropdownOpen && (
-                <div className="assign-dropdown">
-                  <div
-                    className="assign-option"
-                    onClick={() => {
-                      if (currentUser && currentUser._id) {
-                        handleAssignTicket(currentUser._id);
-                      } else {
-                        setError("User information not available");
-                      }
-                    }}
+                {(isAdmin() || currentUser?._id === ticket.owner?._id) && (
+                  <button
+                    className="edit-button-secondary"
+                    onClick={handleEditToggle}
                   >
-                    Assign to me
-                  </div>
-                  {adminUsers.map(
-                    (admin) =>
-                      currentUser &&
-                      admin._id !== currentUser._id && (
-                        <div
-                          key={admin._id}
-                          className="assign-option"
-                          onClick={() => handleAssignTicket(admin._id)}
-                        >
-                          {admin.name}
-                        </div>
-                      )
-                  )}
-                </div>
-              )}
-            </div>
+                    Edit Ticket
+                  </button>
+                )}
+              </div>
+            </>
           ) : (
+            <form className="edit-ticket-form">
+              <div className="edit-field">
+                <label>Title:</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={editedTicket.title}
+                  onChange={handleEditChange}
+                  required
+                />
+              </div>
+              <div className="edit-field">
+                <label>Priority:</label>
+                <select
+                  name="priority"
+                  value={editedTicket.priority}
+                  onChange={handleEditChange}
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+            </form>
+          )}
+        </div>
+
+        <div className="ticket-content">
+          <div className="ticket-info-container">
             <p>
-              <strong>Assigned to:</strong> Unassigned
+              <strong>Created by:</strong> {ticket.owner?.email || "Unknown"}
             </p>
-          )}
-        </div>
-
-        <div className="ticket-description-container">
-          <h3>Description</h3>
-          {isEditing ? (
-            <div className="edit-field">
-              <textarea
-                name="description"
-                value={editedTicket.description}
-                onChange={handleEditChange}
-                rows="4"
-              />
-            </div>
-          ) : (
-            <p>{ticket.description}</p>
-          )}
-        </div>
-
-        <div className="ticket-comments">
-          <h3>Comments</h3>
-          <div className="comments-list">
-            {ticket.comments && ticket.comments.length > 0 ? (
-              ticket.comments.map((comment, index) => (
-                <div key={index} className="comment">
-                  <div className="comment-header">
-                    <span className="comment-author">
-                      {comment.author?.email || "Unknown"}
-                    </span>
-                    <span className="comment-date">
-                      {new Date(comment.createdAt).toLocaleString()}
-                    </span>
+            <p>
+              <strong>Created at:</strong>{" "}
+              {new Date(ticket.createdAt).toLocaleString()}
+            </p>
+            {ticket.assignedTo ? (
+              <div className="assigned-to">
+                <p>
+                  <strong>Assigned to:</strong> {ticket.assignedTo.name}
+                </p>
+                {isAdmin() && (
+                  <div className="reassign-container">
+                    <button
+                      className="reassign-button"
+                      onClick={() => setAssignDropdownOpen(!assignDropdownOpen)}
+                    >
+                      Reassign
+                    </button>
+                    {assignDropdownOpen && (
+                      <div className="assign-dropdown">
+                        <div
+                          className="assign-option"
+                          onClick={() => {
+                            if (currentUser && currentUser._id) {
+                              handleAssignTicket(currentUser._id);
+                            }
+                          }}
+                        >
+                          Assign to me
+                        </div>
+                        {adminUsers.map(
+                          (admin) =>
+                            currentUser &&
+                            admin._id !== currentUser._id && (
+                              <div
+                                key={admin._id}
+                                className="assign-option"
+                                onClick={() => handleAssignTicket(admin._id)}
+                              >
+                                {admin.name}
+                              </div>
+                            )
+                        )}
+                      </div>
+                    )}
                   </div>
-                  <p className="comment-content">{comment.content}</p>
-                </div>
-              ))
+                )}
+              </div>
+            ) : isAdmin() ? (
+              <div className="assign-container">
+                <button
+                  className="assign-button"
+                  onClick={() => setAssignDropdownOpen(!assignDropdownOpen)}
+                >
+                  Assign Ticket ▼
+                </button>
+                {assignDropdownOpen && (
+                  <div className="assign-dropdown">
+                    <div
+                      className="assign-option"
+                      onClick={() => {
+                        if (currentUser && currentUser._id) {
+                          handleAssignTicket(currentUser._id);
+                        } else {
+                          setError("User information not available");
+                        }
+                      }}
+                    >
+                      Assign to me
+                    </div>
+                    {adminUsers.map(
+                      (admin) =>
+                        currentUser &&
+                        admin._id !== currentUser._id && (
+                          <div
+                            key={admin._id}
+                            className="assign-option"
+                            onClick={() => handleAssignTicket(admin._id)}
+                          >
+                            {admin.name}
+                          </div>
+                        )
+                    )}
+                  </div>
+                )}
+              </div>
             ) : (
-              <p className="no-comments">No comments yet</p>
+              <p>
+                <strong>Assigned to:</strong> Unassigned
+              </p>
             )}
           </div>
 
-          <form className="comment-form" onSubmit={handleAddComment}>
-            <textarea
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              placeholder="Add a comment..."
-              rows="3"
-              required
-            />
-            <button type="submit">Add Comment</button>
-          </form>
-          {isEditing && (
-            <div className="edit-buttons">
-              <button
-                className="edit-button-secondary"
-                onClick={handleEditSubmit}
-              >
-                Save
-              </button>
-              <button
-                className="edit-button-secondary"
-                type="button"
-                onClick={handleEditToggle}
-              >
-                Cancel
-              </button>
+          <div className="ticket-description-container">
+            <h3>Description</h3>
+            {isEditing ? (
+              <div className="edit-field">
+                <textarea
+                  name="description"
+                  value={editedTicket.description}
+                  onChange={handleEditChange}
+                  rows="4"
+                />
+              </div>
+            ) : (
+              <p>{ticket.description}</p>
+            )}
+          </div>
+
+          <div className="ticket-comments">
+            <h3>Comments</h3>
+            <div className="comments-list">
+              {ticket.comments && ticket.comments.length > 0 ? (
+                ticket.comments.map((comment, index) => (
+                  <div key={index} className="comment">
+                    <div className="comment-header">
+                      <span className="comment-author">
+                        {comment.author?.email || "Unknown"}
+                      </span>
+                      <span className="comment-date">
+                        {new Date(comment.createdAt).toLocaleString()}
+                      </span>
+                    </div>
+                    <p className="comment-content">{comment.content}</p>
+                  </div>
+                ))
+              ) : (
+                <p className="no-comments">No comments yet</p>
+              )}
             </div>
-          )}
+
+            <form className="comment-form" onSubmit={handleAddComment}>
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Add a comment..."
+                rows="3"
+                required
+              />
+              <button type="submit">Add Comment</button>
+            </form>
+            {isEditing && (
+              <div className="edit-buttons">
+                <button
+                  className="edit-button-secondary"
+                  onClick={handleEditSubmit}
+                >
+                  Save
+                </button>
+                <button
+                  className="edit-button-secondary"
+                  type="button"
+                  onClick={handleEditToggle}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

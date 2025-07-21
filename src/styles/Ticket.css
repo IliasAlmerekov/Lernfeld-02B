@@ -154,6 +154,12 @@
   gap: 1rem;
   padding: 1rem 0;
   align-items: center;
+  cursor: pointer;
+}
+
+.ticket-list-item:hover {
+  background-color: #eaeef4;
+  border-radius: 10px;
 }
 
 .ticket-list-item p {

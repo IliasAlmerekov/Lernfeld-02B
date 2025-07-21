@@ -18,6 +18,7 @@ const AllTickets = ({ role, email, currentTab }) => {
         const tickets = await getAllTickets();
         const sortedTickets = sortByNewest(tickets);
         setAllTickets(sortedTickets);
+        console.log("Fetched tickets:", sortedTickets);
       } catch (error) {
         console.error("Error fetching tickets:", error);
       }
