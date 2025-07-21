@@ -64,21 +64,19 @@ const Ticket = ({
     });
   };
 
-  const renderAllTickets = (ticket, index) => (
+  const renderAllTickets = (ticket) => (
     <div className="ticket-list-container" key={ticket._id}>
-      <div className="ticket-list-item">
-        <p>{allTickets.length - index}</p>
+      <div
+        className="ticket-list-item"
+        onClick={() => handleTicketClick(ticket._id)}
+      >
+        <p>{ticket._id.substring(ticket._id.length - 5)}</p>
         <p>
           <b>{ticket.title}</b>
         </p>
+        <p>{ticket.owner.name}</p>
         <p>{ticket.createdAt ? formatDate(ticket.createdAt) : "N/A"}</p>
         <p className={`status ${ticket.status}`}>{ticket.status}</p>
-        <div
-          className="view-details"
-          onClick={() => handleTicketClick(ticket._id)}
-        >
-          <span>View Details &rarr;</span>
-        </div>
       </div>
     </div>
   );
@@ -120,7 +118,7 @@ const Ticket = ({
 
         <div className="ticket-footer">
           <div className="ticket-id">
-            <b> Ticket ID: {ticket._id.substring(0, 4)}</b>
+            <p>{ticket._id.substring(ticket._id.length - 5)}</p>
           </div>
           <div className="ticket-comments-info">
             <span className="comment-count">
@@ -144,11 +142,11 @@ const Ticket = ({
       {allTickets && (
         <div className="ticket-list-header">
           <div className="ticket-list-headline">
-            <h2>Code</h2>
+            <h2>Ticket ID</h2>
             <h2>Title</h2>
+            <h2>Name</h2>
             <h2>Start Date</h2>
             <h2>Status</h2>
-            <h2>Action</h2>
           </div>
           <div className="ticket-list-body">
             {allTickets && [...allTickets].reverse().map(renderAllTickets)}
